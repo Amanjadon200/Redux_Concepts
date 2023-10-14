@@ -1,4 +1,4 @@
-const { legacy_createStore } = require("redux");
+const { legacy_createStore, bindActionCreators } = require("redux");
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 const intialState = {
   numOfCakes: 10
@@ -29,9 +29,9 @@ const unsubscribe = store.subscribe(() => {
   // this will be called when any state changes in store
   console.log("updated state:", store.getState());
 });
-store.dispatch(action());
-store.dispatch(action());
-store.dispatch(action());
-store.dispatch(action());
-store.dispatch(cakeRestocked(4));
+const dispatcher=bindActionCreators({action,cakeRestocked},store.dispatch)
+dispatcher.action()
+dispatcher.action()
+dispatcher.action()
+dispatcher.cakeRestocked(3);
 unsubscribe();
