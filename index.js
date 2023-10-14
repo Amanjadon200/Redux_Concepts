@@ -1,10 +1,16 @@
-const { legacy_createStore, bindActionCreators } = require("redux");
+const {
+  legacy_createStore,
+  bindActionCreators,
+  combineReducers,
+} = require("redux");
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
 const ICECREAM_SOLD = "ICECREAM_SOLD";
 const CAKE_SOLD = "CAKE_SOLD";
-const intialState = {
+const intialStateOfCake = {
   numOfCakes: 10,
+};
+const intialStateOfIceCream = {
   numOfIceCreams: 5,
 };
 const cakeRestocked = (qty) => {
@@ -31,19 +37,24 @@ const iceCreamSold = (qty) => {
     payload: qty,
   };
 };
-const reducer = (state = intialState, action) => {
+const cakeReducer = (state = intialStateOfCake, action) => {
   if (action.type === CAKE_SOLD) {
     return { ...state, numOfCakes: state.numOfCakes - action.payload };
   } else if (action.type === CAKE_RESTOCKED) {
     return { ...state, numOfCakes: state.numOfCakes + action.payload };
-  } else if (action.type === ICECREAM_SOLD) {
+  }
+  return state;
+};
+const iceCreamReducer = (state = intialStateOfIceCream, action) => {
+  if (action.type === ICECREAM_SOLD) {
     return { ...state, numOfIceCreams: state.numOfIceCreams - action.payload };
   } else if (action.type === ICECREAM_RESTOCKED) {
     return { ...state, numOfIceCreams: state.numOfIceCreams + action.payload };
   }
   return state;
 };
-const store = legacy_createStore(reducer);
+const rootReducer = combineReducers({ cakeReducer, iceCreamReducer });
+const store = legacy_createStore(rootReducer);
 console.log("initial state", store.getState());
 const unsubscribe = store.subscribe(() => {
   // this will be called when any state changes in store
