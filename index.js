@@ -3,10 +3,10 @@ const CAKE_RESTOCKED = "CAKE_RESTOCKED";
 const intialState = {
   numOfCakes: 10
 };
-const cakeRestocked = () => {
+const cakeRestocked = (qty) => {
   return {
     type: CAKE_RESTOCKED,
-    payload: 1,
+    payload: qty,
   };
 };
 const action = () => {
@@ -33,8 +33,5 @@ store.dispatch(action());
 store.dispatch(action());
 store.dispatch(action());
 store.dispatch(action());
-store.dispatch(cakeRestocked());
-store.dispatch(cakeRestocked());
-store.dispatch(cakeRestocked());
-store.dispatch(cakeRestocked());
+store.dispatch(cakeRestocked(4));
 unsubscribe();
