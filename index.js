@@ -42,7 +42,7 @@ const iceCreamSold = (qty) => {
     payload: qty,
   };
 };
-const cakeReducer = (state = intialStateOfCake, action) => {
+const cakeReducer =(state = intialStateOfCake, action) => {
   if (action.type === CAKE_SOLD) {
     return { ...state, numOfCakes: state.numOfCakes - action.payload };
   } else if (action.type === CAKE_RESTOCKED) {
