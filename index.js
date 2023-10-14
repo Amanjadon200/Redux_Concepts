@@ -1,14 +1,17 @@
-const {
+import {
+  applyMiddleware,
   legacy_createStore,
   bindActionCreators,
   combineReducers,
-} = require("redux");
+} from "redux";
+import reduxLogger from "redux-logger";
+const logger = reduxLogger.createLogger();
 import {
   CAKE_RESTOCKED,
   ICECREAM_RESTOCKED,
   ICECREAM_SOLD,
   CAKE_SOLD,
-} from "./constants";
+} from "./constants.js";
 const intialStateOfCake = {
   numOfCakes: 10,
 };
@@ -55,12 +58,13 @@ const iceCreamReducer = (state = intialStateOfIceCream, action) => {
   }
   return state;
 };
+
 const rootReducer = combineReducers({ cakeReducer, iceCreamReducer });
-const store = legacy_createStore(rootReducer);
-console.log("initial state", store.getState());
+const store = legacy_createStore(rootReducer, applyMiddleware(logger));
+// console.log("initial state", store.getState());
 const unsubscribe = store.subscribe(() => {
   // this will be called when any state changes in store
-  console.log("updated state:", store.getState());
+//   console.log("updated state:", store.getState());
 });
 const dispatcher = bindActionCreators(
   { cakeRestocked, iceCreamRestocked, iceCreamSold, cakeSold },
@@ -68,6 +72,6 @@ const dispatcher = bindActionCreators(
 );
 dispatcher.cakeSold(3);
 dispatcher.cakeRestocked(3);
-dispatcher.iceCreamSold(3);
-dispatcher.iceCreamRestocked(3);
+// dispatcher.iceCreamSold(3);
+// dispatcher.iceCreamRestocked(3);
 unsubscribe();
