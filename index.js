@@ -3,10 +3,12 @@ const {
   bindActionCreators,
   combineReducers,
 } = require("redux");
-const CAKE_RESTOCKED = "CAKE_RESTOCKED";
-const ICECREAM_RESTOCKED = "ICECREAM_RESTOCKED";
-const ICECREAM_SOLD = "ICECREAM_SOLD";
-const CAKE_SOLD = "CAKE_SOLD";
+import {
+  CAKE_RESTOCKED,
+  ICECREAM_RESTOCKED,
+  ICECREAM_SOLD,
+  CAKE_SOLD,
+} from "./constants";
 const intialStateOfCake = {
   numOfCakes: 10,
 };
